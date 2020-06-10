@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: LoginSignUpAPI
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Ntehah
+Implementation-Vendor-Id: server.side
+Build-Jdk: 1.8.0_241
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/LoginSignUpAPI
+Created-By: Maven Integration for Eclipse
+
