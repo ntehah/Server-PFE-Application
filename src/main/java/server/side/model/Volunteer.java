@@ -37,6 +37,8 @@ public class Volunteer {
 	@Size(max = 15)
 	private String numero;
 	@NotBlank
+	private String name;
+	@NotBlank
 	@Size(max = 15)
 	private String address;
 	@NotBlank
@@ -53,12 +55,18 @@ public class Volunteer {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "volunteer_qualifacations", joinColumns = @JoinColumn(name = "volunteer_id"), inverseJoinColumns = @JoinColumn(name = "qualifacation_id"))
 	private Set<Qualifacation> qualifacations = new HashSet<>();
-
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "volunteer_calendrier", joinColumns = @JoinColumn(name = "volunteer_id"), inverseJoinColumns = @JoinColumn(name = "jour_id"))
 	private Set<Jour> calendrier = new HashSet<>();
-
 	public Volunteer() {
+	}
+
+	public Set<Jour> getCalendrier() {
+		return calendrier;
+	}
+
+	public void setCalendrier(Set<Jour> calendrier) {
+		this.calendrier = calendrier;
 	}
 
 	public Long getId() {
@@ -67,6 +75,14 @@ public class Volunteer {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -125,12 +141,11 @@ public class Volunteer {
 		this.qualifacations = qualifacations;
 	}
 
-	public Set<Jour> getCalendrier() {
-		return calendrier;
-	}
-
-	public void setCalendrier(Set<Jour> calendrier) {
-		this.calendrier = calendrier;
+	@Override
+	public String toString() {
+		return "Volunteer [id=" + id + ", email=" + email + ", numero=" + numero + ", name=" + name + ", address="
+				+ address + ", date_naissance=" + date_naissance + ", activites=" + activites
+				+ ", qualifacations=" + qualifacations ;
 	}
 
 }

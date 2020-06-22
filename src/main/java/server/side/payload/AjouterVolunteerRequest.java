@@ -11,6 +11,8 @@ public class AjouterVolunteerRequest {
 	@NotBlank
 	private String numero;
 	@NotBlank
+	private String name;
+	@NotBlank
 	private String email;
 	@NotBlank
 	private String dateDeNaissance;
@@ -32,6 +34,14 @@ public class AjouterVolunteerRequest {
 
 	public String getCalendrier() {
 		return calendrier;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setCalendrier(String calendrier) {

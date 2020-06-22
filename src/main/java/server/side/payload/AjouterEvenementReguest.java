@@ -20,12 +20,22 @@ public class AjouterEvenementReguest {
 	private String description;
 	@NotBlank
 	private String email;
+	private long id;
 
 	public AjouterEvenementReguest() {
 	}
 
 	public String getTitre() {
 		return titre;
+	}
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setTitre(String titre) {

@@ -31,24 +31,27 @@ public class EvenementService {
 	public EvenementService(OrganizationRepository organizationRepository, EvenementRepository evenementRepository) {
 		this.organizationRepository = organizationRepository;
 		this.evenementRepository = evenementRepository;
-
 	}
 
 	public List<Evenement> getAllByOrganization(String Email) {
-
 		return evenementRepository.findByOrganizationOrderByDateAsc(organizationRepository.findByEmail(Email));
+	}
+
+	public List<Evenement> getAll() {
+		return evenementRepository.findAll();
 	}
 
 	public void saveEvenement(AjouterEvenementReguest e) throws IOException, ParseException {
 		Organization or = organizationRepository.findByEmail(e.getEmail());
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//		LocalDate localdate = LocalDate.parse(, formatter);
-//		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date(e.getDate());
 		Time debut = new Time(e.getDebut());
 		Time fin = new Time(e.getDebut());
-        System.out.println(or.toString());
+		System.out.println(or.toString());
+		
 		Evenement eve = new Evenement();
+		if(e.getId()!=0) {
+			eve.setId(e.getId());
+		}
 		eve.setTitre(e.getTitre());
 
 		eve.setDate(date);
@@ -65,11 +68,8 @@ public class EvenementService {
 
 	}
 
-	public void deleteVolunteer(Long id) {
-		organizationRepository.deleteById(id);
+	public void deleteEvent(Long id) {
+		evenementRepository.deleteById(id);
 	}
 
-	public Optional<Organization> getVolunteerById(Long id) {
-		return organizationRepository.findById(id);
-	}
 }

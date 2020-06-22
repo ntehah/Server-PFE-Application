@@ -5,7 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -21,7 +22,6 @@ public class Jour {
 	private Boolean matin;
 	private Boolean midi;
 	private Boolean soir;
-
 	public Jour() {
 	}
 
@@ -40,12 +40,14 @@ public class Jour {
 		this.id = id;
 	}
 
-	public String getUsername() {
+
+
+	public String getJourname() {
 		return journame;
 	}
 
-	public void setUsername(String username) {
-		this.journame = username;
+	public void setJourname(String journame) {
+		this.journame = journame;
 	}
 
 	public Boolean getMatin() {

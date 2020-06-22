@@ -1,73 +1,65 @@
 package server.side.model;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.NaturalId;
-
 @Entity
-public class Organization {
+public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NaturalId
 	@NotBlank
-	@Size(max = 40)
-	@Email
-	private String email;
+	private Long idEvent;
 	@NotBlank
-	private String name;
-	@Lob
-	private String photo;
+	private Long idVolunteer;
+	@NotBlank
 	private String description;
-	
-
-	public Organization() {
+	private Date date;
+	@NotBlank
+	private String state;
+	public Task() {
 	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getEmail() {
-		return email;
+	public Long getIdEvent() {
+		return idEvent;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setIdEvent(Long idEvent) {
+		this.idEvent = idEvent;
 	}
-
-	public String getPhoto() {
-		return photo;
+	public Long getIdVolunteer() {
+		return idVolunteer;
 	}
-
-	public String getName() {
-		return name;
+	public void setIdVolunteer(Long idVolunteer) {
+		this.idVolunteer = idVolunteer;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	
 }

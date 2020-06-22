@@ -39,37 +39,37 @@ public class CalendrierService {
 		Jour samedi = new Jour();
 		Jour dimanche = new Jour();
 
-		lundi.setUsername("lundi");
+		lundi.setJourname("lundi");
 		lundi.setMatin(cal.getJSONObject("lundi").getBoolean("matin"));
 		lundi.setMidi(cal.getJSONObject("lundi").getBoolean("apresmidi"));
 		lundi.setSoir(cal.getJSONObject("lundi").getBoolean("soire"));
 
-		mardi.setUsername("mardi");
+		mardi.setJourname("mardi");
 		mardi.setMatin(cal.getJSONObject("mardi").getBoolean("matin"));
 		mardi.setMidi(cal.getJSONObject("mardi").getBoolean("apresmidi"));
 		mardi.setSoir(cal.getJSONObject("mardi").getBoolean("soire"));
 
-		mercredi.setUsername("mercredi");
+		mercredi.setJourname("mercredi");
 		mercredi.setMatin(cal.getJSONObject("mercredi").getBoolean("matin"));
 		mercredi.setMidi(cal.getJSONObject("mercredi").getBoolean("apresmidi"));
 		mercredi.setSoir(cal.getJSONObject("mercredi").getBoolean("soire"));
 
-		jeudi.setUsername("jeudi");
+		jeudi.setJourname("jeudi");
 		jeudi.setMatin(cal.getJSONObject("jeudi").getBoolean("matin"));
 		jeudi.setMidi(cal.getJSONObject("jeudi").getBoolean("apresmidi"));
 		jeudi.setSoir(cal.getJSONObject("jeudi").getBoolean("soire"));
 
-		vendredi.setUsername("vendredi");
+		vendredi.setJourname("vendredi");
 		vendredi.setMatin(cal.getJSONObject("vendredi").getBoolean("matin"));
 		vendredi.setMidi(cal.getJSONObject("vendredi").getBoolean("apresmidi"));
 		vendredi.setSoir(cal.getJSONObject("vendredi").getBoolean("soire"));
 
-		samedi.setUsername("samedi");
+		samedi.setJourname("samedi");
 		samedi.setMatin(cal.getJSONObject("samedi").getBoolean("matin"));
 		samedi.setMidi(cal.getJSONObject("samedi").getBoolean("apresmidi"));
 		samedi.setSoir(cal.getJSONObject("samedi").getBoolean("soire"));
 
-		dimanche.setUsername("dimanche");
+		dimanche.setJourname("dimanche");
 		dimanche.setMatin(cal.getJSONObject("dimanche").getBoolean("matin"));
 		dimanche.setMidi(cal.getJSONObject("dimanche").getBoolean("apresmidi"));
 		dimanche.setSoir(cal.getJSONObject("dimanche").getBoolean("soire"));

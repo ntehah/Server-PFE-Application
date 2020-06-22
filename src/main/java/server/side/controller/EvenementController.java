@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,22 @@ public class EvenementController {
 		JSONObject e = new JSONObject(email);
 		System.out.println(e.getString("email"));
 		List<Evenement> list = evenementService.getAllByOrganization(e.getString("email"));
+		list.forEach(eve -> System.out.println(eve.toString()));
+		return list;
+	}
+
+	@CrossOrigin(origins = "&{app.urlclient}")
+	@PostMapping("/deleteevent")
+	public void DeleteEvent(@Valid @RequestBody String id) {
+
+		JSONObject e = new JSONObject(id);
+		evenementService.deleteEvent(e.getLong("id"));
+	}
+
+	@CrossOrigin(origins = "&{app.urlclient}")
+	@GetMapping("/getallevent")
+	public List<Evenement> getAllEvenement() {
+		List<Evenement> list = evenementService.getAll();
 		list.forEach(eve -> System.out.println(eve.toString()));
 		return list;
 	}

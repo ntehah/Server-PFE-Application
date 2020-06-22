@@ -2,7 +2,6 @@ package server.side.model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,8 +20,10 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Evenement {
+public class Evenement{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,11 +40,10 @@ public class Evenement {
 	private String photo;
 	@NotBlank
 	private String description;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER , optional = false)
 	@JoinColumn(name = "organization_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Organization organization;
-
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "volunteer_Evenement", joinColumns = @JoinColumn(name = "evenement_id"), inverseJoinColumns = @JoinColumn(name = "volunteer_id"))
 	private Set<Volunteer> participents = new HashSet<>();
