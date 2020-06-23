@@ -2,6 +2,7 @@ package server.side.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 import org.json.JSONObject;
@@ -71,10 +72,12 @@ public class VolunteerController {
 
 	@CrossOrigin(origins = "&{app.urlclient}")
 	@PostMapping("/getabonne")
-	public Abonee GetAbonne(@Valid @RequestBody String email) throws IOException {
+	public Boolean GetAbonne(@Valid @RequestBody String email) throws IOException {
 		JSONObject e = new JSONObject(email);
-
-		return aboneeRepository.findByEmailvol(e.getString("email"));
+		Optional<Abonee> abonne = aboneeRepository.findByEmailvol(e.getString("email"));
+		if (abonne.isPresent())
+			return true;
+		return false;
 
 	}
 }

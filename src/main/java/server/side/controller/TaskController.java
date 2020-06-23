@@ -42,10 +42,16 @@ public class TaskController {
 	@CrossOrigin(origins = "&{app.urlclient}")
 	@PostMapping("/getVolunteers")
 	public List<ResponseListOfVolunteer> getAllV(@Valid @RequestBody String email) {
-System.out.println("here we go");
 		JSONObject e = new JSONObject(email);
 		return taskService.getAllVolunteer(e.getString("email"));
 
 	}
+	@CrossOrigin(origins = "&{app.urlclient}")
+	@PostMapping("/addtask")
+	public String AddTask(@Valid @RequestBody String task) {
+		JSONObject e = new JSONObject(task);
+		System.out.println(e.toString());
+		return "task est ajouter";
 
+	}
 }

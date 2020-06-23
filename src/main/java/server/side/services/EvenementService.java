@@ -45,9 +45,7 @@ public class EvenementService {
 		Organization or = organizationRepository.findByEmail(e.getEmail());
 		Date date = new Date(e.getDate());
 		Time debut = new Time(e.getDebut());
-		Time fin = new Time(e.getDebut());
-		System.out.println(or.toString());
-		
+		Time fin = new Time(e.getDebut());		
 		Evenement eve = new Evenement();
 		if(e.getId()!=0) {
 			eve.setId(e.getId());

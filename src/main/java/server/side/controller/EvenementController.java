@@ -34,26 +34,19 @@ public class EvenementController {
 			throws IOException, ParseException {
 
 		evenementService.saveEvenement(ajouterEvenementReguest);
-		List<Evenement> list = evenementService.getAllByOrganization(ajouterEvenementReguest.getEmail());
-		list.forEach(eve -> System.out.println(eve.toString()));
 		return ResponseEntity.ok(new OrganizationResponse(true, "Evenement Bien Ajouter"));
 	}
 
 	@CrossOrigin(origins = "&{app.urlclient}")
 	@PostMapping("/getall")
 	public List<Evenement> getAllEvenementByOrganization(@Valid @RequestBody String email) {
-
 		JSONObject e = new JSONObject(email);
-		System.out.println(e.getString("email"));
-		List<Evenement> list = evenementService.getAllByOrganization(e.getString("email"));
-		list.forEach(eve -> System.out.println(eve.toString()));
-		return list;
+		return evenementService.getAllByOrganization(e.getString("email"));
 	}
 
 	@CrossOrigin(origins = "&{app.urlclient}")
 	@PostMapping("/deleteevent")
 	public void DeleteEvent(@Valid @RequestBody String id) {
-
 		JSONObject e = new JSONObject(id);
 		evenementService.deleteEvent(e.getLong("id"));
 	}
@@ -61,8 +54,6 @@ public class EvenementController {
 	@CrossOrigin(origins = "&{app.urlclient}")
 	@GetMapping("/getallevent")
 	public List<Evenement> getAllEvenement() {
-		List<Evenement> list = evenementService.getAll();
-		list.forEach(eve -> System.out.println(eve.toString()));
-		return list;
+		return  evenementService.getAll();
 	}
 }
