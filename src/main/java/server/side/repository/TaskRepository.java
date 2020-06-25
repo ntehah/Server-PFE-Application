@@ -12,4 +12,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	List<Task> findByIdVolunteer(Long idVolunteer);
 
 	List<Task> findByIdEvent(Long Event);
+	List<Task> findByEmailorg(String email);
+
 }

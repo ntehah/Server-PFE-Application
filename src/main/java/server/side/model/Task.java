@@ -13,14 +13,14 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
 	private Long idEvent;
-	@NotBlank
 	private Long idVolunteer;
-	@NotBlank
+	private String emailorg;
+	private String titre;
+
 	private String description;
 	private Date date;
-	@NotBlank
+
 	private String state;
 	public Task() {
 	}
@@ -33,11 +33,24 @@ public class Task {
 	public Long getIdEvent() {
 		return idEvent;
 	}
+	
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
 	public void setIdEvent(Long idEvent) {
 		this.idEvent = idEvent;
 	}
 	public Long getIdVolunteer() {
 		return idVolunteer;
+	}
+	public String getEmailorg() {
+		return emailorg;
+	}
+	public void setEmailorg(String emailorg) {
+		this.emailorg = emailorg;
 	}
 	public void setIdVolunteer(Long idVolunteer) {
 		this.idVolunteer = idVolunteer;

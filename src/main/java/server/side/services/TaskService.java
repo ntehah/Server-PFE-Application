@@ -1,6 +1,7 @@
 package server.side.services;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Service;
 
 import server.side.model.Abonee;
 import server.side.model.Evenement;
+import server.side.model.Organization;
 import server.side.model.Task;
 import server.side.model.Volunteer;
 import server.side.payload.AjouterVolunteerRequest;
 import server.side.payload.ResponseListOfEvent;
 import server.side.payload.ResponseListOfVolunteer;
+import server.side.payload.TaskPayload;
 import server.side.repository.AboneeRepository;
 import server.side.repository.ActivityRepository;
 import server.side.repository.EvenementRepository;
@@ -32,15 +35,18 @@ public class TaskService {
 	private VolunteerRepository volunteerRepository;
 
 	private EvenementService evenementService;
+	private EvenementRepository evenementRepository;
+
 	private TaskRepository taskRepository;
 
 	@Autowired
 	public TaskService(VolunteerRepository volunteerRepository, VolunteerService volunteerService,
-			EvenementService evenementService, TaskRepository taskRepository) {
+			EvenementService evenementService, TaskRepository taskRepository, EvenementRepository evenementRepository) {
 		this.volunteerService = volunteerService;
 		this.evenementService = evenementService;
 		this.taskRepository = taskRepository;
 		this.volunteerRepository = volunteerRepository;
+		this.evenementRepository = evenementRepository;
 
 	}
 
@@ -81,11 +87,50 @@ public class TaskService {
 		return l;
 	}
 
-	public void saveVolunteer(Long idEvent, Long idVolunteer, String description, String dates, String state)
-			throws IOException {
+	public List<TaskPayload> getAllTaskByOrg(String email) {
+		List<TaskPayload> l = new ArrayList<TaskPayload>();
+		List<Task> listtask = taskRepository.findByEmailorg(email);
+		for (int i = 0; i < listtask.size(); i++) {
+			TaskPayload tsk = new TaskPayload();
+			Optional<Volunteer> v = volunteerRepository.findById(listtask.get(i).getIdVolunteer());
+			if (v.isPresent()) {
+				tsk.setNameVolunteer(v.get().getName());
+				tsk.setPhotoVolunteer(v.get().getPhoto());
+			}
+			Optional<Evenement> eve = evenementRepository.findById(listtask.get(i).getIdEvent());
+			if (eve.isPresent()) {
+				tsk.setNameEvenement(eve.get().getTitre());
+				tsk.setPhotoEvenement(eve.get().getPhoto());
+			}
+			tsk.setDate(listtask.get(i).getDate());
+			tsk.setDescription(listtask.get(i).getDescription());
+			tsk.setTitre(listtask.get(i).getTitre());
+			tsk.setState(listtask.get(i).getState());
+			tsk.setId(listtask.get(i).getId());
 
-		Task task = new Task();
-
+			l.add(tsk);
+		}
+		return l;
 	}
 
+	public void saveTask(Long idEvent, Long idVolunteer, String description, long dates, String state, String emailorg,
+			String titre,long id) throws IOException {
+
+		Task task = new Task();
+		if(id !=0) {
+			task.setId(id);
+		}
+		task.setIdEvent(idEvent);
+		task.setIdVolunteer(idVolunteer);
+		task.setState(state);
+		task.setDate(new Date(dates));
+		task.setEmailorg(emailorg);
+		task.setTitre(titre);
+		task.setDescription(description);
+		taskRepository.save(task);
+
+	}
+	public void deleteTask(Long id) {
+		taskRepository.deleteById(id);
+	}
 }
