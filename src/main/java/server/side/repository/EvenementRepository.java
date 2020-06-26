@@ -11,5 +11,7 @@ import server.side.model.Organization;
 @Repository
 public interface EvenementRepository extends JpaRepository<Evenement, Long> {
     List<Evenement> findByOrganizationOrderByDateAsc(Organization or);
+    long countByOrganization(Organization or);
+
 
 }

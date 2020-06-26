@@ -74,10 +74,40 @@ public class VolunteerController {
 	@PostMapping("/getabonne")
 	public Boolean GetAbonne(@Valid @RequestBody String email) throws IOException {
 		JSONObject e = new JSONObject(email);
-		Optional<Abonee> abonne = aboneeRepository.findByEmailvol(e.getString("email"));
+		Optional<Abonee> abonne = aboneeRepository.findByEmailvolAndEmailorg(e.getString("emailvol"),
+				e.getString("emailorg"));
 		if (abonne.isPresent())
 			return true;
 		return false;
 
 	}
+
+	@CrossOrigin(origins = "&{app.urlclient}")
+	@PostMapping("/demands")
+	public List<Volunteer> GetDemands(@Valid @RequestBody String email) throws IOException {
+		JSONObject e = new JSONObject(email);
+		return volunteerService.getDemands(e.getString("email"));
+	}
+
+	@CrossOrigin(origins = "&{app.urlclient}")
+	@PostMapping("/deletedemands")
+	public void DeleteDemands(@Valid @RequestBody String obj) throws IOException {
+		JSONObject e = new JSONObject(obj);
+		aboneeRepository.deleteByEmailvolAndEmailorg(e.getString("emailvol"), e.getString("emailorg"));
+	}
+
+	@CrossOrigin(origins = "&{app.urlclient}")
+	@PostMapping("/acceptedemands")
+	public void AccepteDemands(@Valid @RequestBody String obj) throws IOException {
+		JSONObject e = new JSONObject(obj);
+		Optional<Abonee> abonne = aboneeRepository.findByEmailvolAndEmailorg(e.getString("emailvol"),
+				e.getString("emailorg"));
+		Abonee a = new Abonee();
+		if (abonne.isPresent())
+			a = abonne.get();
+		a.setEtat("ACCEPTE");
+		aboneeRepository.save(a);
+
+	}
+
 }

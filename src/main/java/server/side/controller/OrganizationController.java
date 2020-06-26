@@ -19,6 +19,7 @@ import server.side.model.Evenement;
 import server.side.model.Organization;
 import server.side.payload.AjouterOrganizationRequest;
 import server.side.payload.OrganizationResponse;
+import server.side.payload.ProfileOrganizationResponse;
 import server.side.services.OrganizationService;
 
 @CrossOrigin(origins = "&{app.urlclient}")
@@ -38,7 +39,7 @@ public class OrganizationController {
 
 	@CrossOrigin(origins = "&{app.urlclient}")
 	@PostMapping("/getprofil")
-	public Organization GetOrganization(@Valid @RequestBody String email) throws IOException {
+	public ProfileOrganizationResponse GetOrganization(@Valid @RequestBody String email) throws IOException {
 		JSONObject e = new JSONObject(email);
 		return organizationService.getOrganization(e.getString("email"));
 	}

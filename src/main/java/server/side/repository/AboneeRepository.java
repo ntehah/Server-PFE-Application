@@ -10,7 +10,11 @@ import server.side.model.Abonee;
 
 @Repository
 public interface AboneeRepository extends JpaRepository<Abonee, Long> {
-	Optional<Abonee> findByEmailvol(String email);
+	Optional<Abonee> findByEmailvolAndEmailorg(String emailvol, String emailorg);
+
+	void deleteByEmailvolAndEmailorg(String emailvol, String emailorg);
 
 	List<Abonee> findByEmailorg(String email);
+    long countByEmailorgAndEtat(String emailorg,String etat);
+
 }

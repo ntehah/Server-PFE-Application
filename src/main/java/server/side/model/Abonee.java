@@ -48,7 +48,7 @@ public class Abonee {
 		this.emailvol = emailvol;
 	}
 
-	public String isEtat() {
+	public String getEtat() {
 		return etat;
 	}
 

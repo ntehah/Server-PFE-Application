@@ -55,7 +55,21 @@ public class VolunteerService {
 		List<Abonee> followers = aboneeRepository.findByEmailorg(email);
 		for (int i = 0; i < followers.size(); i++) {
 			String e = followers.get(i).getEmailvol();
-			l.add(volunteerRepository.findByEmail(e));
+			String etat = followers.get(i).getEtat();
+			if (etat.equals("ACCEPTE"))
+				l.add(volunteerRepository.findByEmail(e));
+
+		}
+		return l;
+	}
+	public List<Volunteer> getDemands(String email) {
+		List<Volunteer> l = new ArrayList<Volunteer>();
+		List<Abonee> followers = aboneeRepository.findByEmailorg(email);
+		for (int i = 0; i < followers.size(); i++) {
+			String e = followers.get(i).getEmailvol();
+			String etat = followers.get(i).getEtat();
+			if (etat.equals("REQUEST"))
+				l.add(volunteerRepository.findByEmail(e));
 
 		}
 		return l;

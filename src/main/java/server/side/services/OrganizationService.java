@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import server.side.model.Organization;
 import server.side.payload.AjouterOrganizationRequest;
+import server.side.payload.ProfileOrganizationResponse;
+import server.side.repository.AboneeRepository;
+import server.side.repository.EvenementRepository;
 import server.side.repository.OrganizationRepository;
 
 @Service
@@ -17,20 +20,35 @@ import server.side.repository.OrganizationRepository;
 public class OrganizationService {
 
 	private OrganizationRepository organizationRepository;
+	private EvenementRepository evenementRepository;
+	private AboneeRepository aboneeRepository;
 	Logger logger = Logger.getLogger(VolunteerService.class.getName());
 
 	@Autowired
-	public OrganizationService(OrganizationRepository organizationRepository) {
+	public OrganizationService(OrganizationRepository organizationRepository, EvenementRepository evenementRepository,
+			AboneeRepository aboneeRepository) {
 		this.organizationRepository = organizationRepository;
-
+		this.aboneeRepository = aboneeRepository;
+		this.evenementRepository = evenementRepository;
 	}
 
 	public List<Organization> getAllOrganization() {
 		return organizationRepository.findAll();
 	}
 
-	public Organization getOrganization(String email) {
-		return organizationRepository.findByEmail(email);
+	public ProfileOrganizationResponse getOrganization(String email) {
+		ProfileOrganizationResponse p = new ProfileOrganizationResponse();
+		Organization o = organizationRepository.findByEmail(email);
+		long nv = evenementRepository.countByOrganization(o);
+		long nm = aboneeRepository.countByEmailorgAndEtat(o.getEmail(), "ACCEPTE");
+		p.setDescription(o.getDescription());
+		p.setName(o.getName());
+		p.setEmail(o.getEmail());
+		p.setPhoto(o.getPhoto());
+		p.setId(o.getId());
+		p.setNbEvents(nv);
+		p.setNbMembre(nm);
+		return p;
 	}
 
 	public void saveOrganization(AjouterOrganizationRequest v) throws IOException {
