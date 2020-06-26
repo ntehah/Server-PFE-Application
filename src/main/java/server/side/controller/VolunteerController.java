@@ -93,7 +93,13 @@ public class VolunteerController {
 	@PostMapping("/deletedemands")
 	public void DeleteDemands(@Valid @RequestBody String obj) throws IOException {
 		JSONObject e = new JSONObject(obj);
-		aboneeRepository.deleteByEmailvolAndEmailorg(e.getString("emailvol"), e.getString("emailorg"));
+		Optional<Abonee> abonne= aboneeRepository.findByEmailvolAndEmailorg(e.getString("emailvol"), e.getString("emailorg"));
+		if(abonne.isPresent()) {
+			aboneeRepository.delete(abonne.get());
+		}
+		else {
+			System.out.println("Volunteer Controler Delete abonne check here bro");
+		}
 	}
 
 	@CrossOrigin(origins = "&{app.urlclient}")
